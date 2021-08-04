@@ -1,0 +1,28 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="text-center">
+        <h1>Welcome, {{ user.username | capfirst }}!</h1>
+        <br>
+        {% if account.profile_image %}
+            <img class="rounded-circle profile-image-account" src="{{ account.profile_image.url }}" alt="">
+        {% else %}
+            <img class="rounded-circle profile-image-account" src="{% static 'images/generic_account.png' %}" alt="">
+        {% endif %}
+        <div class="w-50 m-auto">
+            <form action="{% url 'details account user' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.profile_image }}
+                <button class="btn btn-success">Update</button>
+            </form>
+            {% if not user.is_staff %}
+                <a href="{% url 'completed orders user' %}">
+                <button type="submit" class="btn btn-info">Orders</button>
+            {% endif %}
+            </a>
+            <a href="{% url 'sing out user' %}">
+                <button type="submit" class="btn btn-secondary">Sign Out</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

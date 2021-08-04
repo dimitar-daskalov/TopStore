@@ -1,0 +1,97 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    {% if user.is_staff %}
+        <div class="ta-center">
+            <h4><strong>You are logged as a staff!</strong></h4>
+            <br>
+            <h5>Staff does not have permission to order!</h5>
+            <br>
+            <a href="{% url 'all products' %}">
+                <button class="btn btn-success">Go back</button>
+            </a>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box-element">
+                    <a class="btn btn-success" href="{% url 'cart' %}"><i class="far fa-caret-square-left"></i>
+                        Back to Cart
+                    </a>
+                    <hr>
+                    <h3>Order Summary</h3>
+                    <hr>
+                    {% if not items %}
+                        <p>No items added!</p>
+                    {% else %}
+                        {% for item in items %}
+                            <div class="cart-row">
+                                <div class="product-image-cart" style="flex:2">
+                                    {% if item.product.product_image %}
+                                        <img src="{{ item.product.product_image.url }}" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/generic_product.png' %}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div style="flex:2"><p>{{ item.product.name }}</p></div>
+                                <div class="text-danger" style="flex:1"><p>{{ item.product.price }} BGN</p></div>
+                                <div style="flex:1"><p>&nbsp x{{ item.quantity }}</p></div>
+                            </div>
+                        {% endfor %}
+                        {% if items %}
+                            <h5 class="ta-right">Items:&nbsp {{ order.total_cart_items_count }}</h5>
+                            <hr>
+                            <h5 class="ta-right text-danger">Total:&nbsp {{ order.total_cart_items_price }}BGN</h5>
+                        {% else %}
+                            <h5>Items:&nbsp 0</h5>
+                            <hr>
+                            <h5 class="ta-right text-danger">Total:&nbsp 0 BGN</h5>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="box-element" id="form-wrapper">
+                    <form method="POST" action="{% url 'checkout' %}">
+                        <p><strong>Additional Information:</strong></p>
+                        <hr>
+                        <label class="form-field">
+                            {% csrf_token %}
+                            {{ form.order }}
+                        </label>
+                        <label class="form-field">
+                            {{ form.user }}
+                        </label>
+                        <label class="form-field">
+                            {{ form.address }}
+                        </label>
+                        <label class="form-field">
+                            {{ form.city }}
+                        </label>
+                        <label class="form-field">
+                            {{ form.zip_code }}
+                        </label>
+                        <label class="form-field">
+                            {{ form.telephone_number }}
+                        </label>
+                        <label class="form-field">
+                            {{ form.comment }}
+                            {{ form.errors }}
+                        </label>
+                        <hr>
+                        {% if items %}
+                            <input id="form-button" class="btn btn-success btn-block" type="submit"
+                                   value="Complete Order">
+                        {% else %}
+                            <button type="submit" class="btn btn-secondary btn-block" disabled="disabled">
+                                Complete Order
+                            </button>
+                        {% endif %}
+                    </form>
+                </div>
+                <br>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

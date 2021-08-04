@@ -1,0 +1,12 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="contact-message">
+        <h1>Your order was send successfully!</h1>
+        <h2>Our team will contact you once the order is processed.</h2>
+        <h2>Thank you for purchasing from our site!</h2>
+        <button class="button-contact-us">
+            <a href="{% url 'all products' %}">Back to Products</a>
+        </button>
+    </div>
+{% endblock %}

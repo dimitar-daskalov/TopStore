@@ -1,0 +1,36 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <h1 class="text-center">Add Product</h1>
+    <div class="row">
+        <div class="container">
+            <form method="POST" action="{% url 'create product' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="change-form-1">
+                    <label for="name">Type</label>
+                    {{ form.type }}
+                </div>
+                <div class="change-form-2">
+                    <label for="email">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="change-form-3">
+                    <label for="message">Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="change-form-4">
+                    <label for="message">Product Image</label>
+                    {{ form.product_image }}
+                </div>
+                <div class="change-form-5">
+                    <label for="message">Price</label>
+                    {{ form.price }}
+                    {{ form.errors }}
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
