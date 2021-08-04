@@ -1,0 +1,52 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="contact-us">
+        <h1 class="contact-us-h1">Contact Us</h1>
+        <div class="wrapper-contact-us">
+            <div class="contact-content-container">
+                <div class="content-contact-us">
+                    <p class="contact-us-p">
+                        <i class="fas fa-map-marker-alt"></i>
+                        &nbsp; 7 Sveta Nedelya Sq. 1000 Sofia, Bulgaria
+                    </p>
+                    <p class="contact-us-p"><i class="fas fa-phone-alt"></i> &nbsp; 02/ 933 7 212</p>
+                    <p class="contact-us-p"><i class="fas fa-mobile-alt"></i> &nbsp; +359 877 44 85 55</p>
+                    <div class="social-contact-us">
+                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="image-section-contact-us">
+                    <img src="{% static 'images/contact_us.png' %}" alt="#">
+                </div>
+            </div>
+            <div class="contact-form-container">
+                <h3 class="contact-us-h3">Leave Us a Message</h3>
+                <form method="POST" action="{% url 'contact' %}">
+                    {% csrf_token %}
+                    <div class="change-form-1">
+                        <label for="name">Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="change-form-2">
+                        <label for="email">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="change-form-3">
+                        <label for="message">Message</label>
+                        {{ form.message }}
+                        {{ form.errors }}
+                    </div>
+                    <div>
+                        <button class="button-contact-us">
+                            <input type="submit" value="SEND"/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

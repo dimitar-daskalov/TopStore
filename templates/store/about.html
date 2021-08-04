@@ -1,0 +1,44 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="about-us">
+        <h1 class="about-us-h1">About us</h1>
+        <div class="wrapper-about-us">
+            <div class="content-about-us">
+                <h3 class="about-us-h3">
+                    Order online and we will deliver.
+                </h3>
+                <p class="about-us-p">
+                    The company was founded 2021 in Bulgaria, Sofia with the idea to make online shopping easier and
+                    more
+                    enjoyable.
+                    <br>
+                    <br>
+                    If you have any additional questions or concerns, feel free to contact us by clicking the button
+                    below.
+                    <br>
+                    <br>
+                    Best Regards,
+                    <br>
+                    <br>
+                    TopStore Team
+                </p>
+                <button class="button-read-more">
+                    <a href="{% url 'store' %}">Read More</a>
+                </button>
+                <button class="button-contact-us">
+                    <a href="{% url 'contact' %}">Contact Us</a>
+                </button>
+                <div class="social-about-us">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="image-section-about-us">
+                <img src="{% static 'images/about_us.png' %}" alt="#">
+            </div>
+        </div>
+    </div>
+{% endblock content %}

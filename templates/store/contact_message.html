@@ -1,0 +1,10 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="contact-message">
+        <h1>Your message was send successfully!</h1>
+        <button class="button-contact-us">
+            <a href="{% url 'store' %}">Confirm</a>
+        </button>
+    </div>
+{% endblock %}

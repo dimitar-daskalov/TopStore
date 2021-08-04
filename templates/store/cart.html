@@ -1,0 +1,85 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    {% if user.is_staff %}
+        <div class="ta-center">
+            <h4><strong>You are logged as a staff!</strong></h4>
+            <br>
+            <h5>Staff does not have permission to order!</h5>
+            <br>
+            <a href="{% url 'all products' %}">
+                <button class="btn btn-success">Go back</button>
+            </a>
+        </div>
+    {% else %}
+        <div class="row flex-wrap">
+            <div class="col-lg-12">
+                <div class="box-element">
+                    <a class="btn btn-success" href="{% url 'all products' %}"><i class="far fa-caret-square-left"></i>
+                        Continue Shopping
+                    </a>
+                    <br>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <th><h5>Items: <strong>&nbsp{{ order.total_cart_items_count }}</strong></h5></th>
+                            <th><h5>Total:
+                                <strong class="text-danger">
+                                    &nbsp{{ order.total_cart_items_price | floatformat:2 }} BGN
+                                </strong>
+                            </h5></th>
+                            <th class="ta-right">
+                                <a class="btn btn-success" href="{% url 'checkout' %}">Checkout
+                                    <i class="far fa-caret-square-right"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <div class="box-element">
+                    <div class="cart-row">
+                        <div style="flex:2"></div>
+                        <div style="flex:2"><strong>Item Name</strong></div>
+                        <div style="flex:1"><strong>Price</strong></div>
+                        <div style="flex:1"><strong>Quantity</strong></div>
+                        <div style="flex:1"><strong>Total</strong></div>
+                    </div>
+                    {% if not items %}
+                        <p>No items added!</p>
+                    {% else %}
+                        {% for item in items %}
+                            <div class="cart-row">
+                                <div class="product-image-cart" style="flex:2">
+                                    {% if item.product.product_image %}
+                                        <img src="{{ item.product.product_image.url }}" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/generic_product.png' %}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div style="flex:2"><strong>{{ item.product.name }}</strong></div>
+                                <div class="text-danger" style="flex:1"><p>{{ item.product.price | floatformat:2 }}
+                                    BGN</p>
+                                </div>
+                                <div style="flex:1">
+                                    <div class="quantity d-flex align-items-center">
+                                        <i data-product={{ item.product.id }} data-action="remove"
+                                           class="fas fa-minus-circle chg-quantity update-cart"></i>
+                                        <p><strong>{{ item.quantity }}</strong></p>
+                                        <i data-product={{ item.product.id }} data-action="add"
+                                           class="fas fa-plus-circle chg-quantity update-cart"></i>
+                                    </div>
+                                </div>
+                                <div style="flex:1">
+                                    <p class="text-danger">
+                                        <strong>{{ item.total_price_item }} BGN</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

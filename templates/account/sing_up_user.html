@@ -1,0 +1,18 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+    <div class="container ta-center">
+        <div class="col-lg-6">
+            <form method="post" action="{% url 'sign up user' %}">
+                <h2>Sign up</h2>
+                {% csrf_token %}
+                {{ form }}
+                {{ form.errors }}
+                <button class="btn btn-primary" type="submit">Sign up</button>
+                <br>
+                <span class="ta-right">Have an account?
+                        <a href="{% url 'sing in user' %}" style="color:orange">Sign in here</a>
+                    </span>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <h2 class="ta-center">Orders</h2>
+    <br>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Date Ordered</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Zip Code</th>
+            <th scope="col">Items</th>
+            <th scope="col">Items Count</th>
+            <th scope="col">Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="row"></th>
+                <td>{{ order.date_ordered }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.city }}</td>
+                <td>{{ order.telephone_number }}</td>
+                <td>{{ order.zip_code }}</td>
+                <td>{{ order.items }}</td>
+                <td>{{ order.total_cart_items_count }}</td>
+                <td class="text-danger">{{ order.total_cart_items_price }} BGN</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="pagination justify-content-center">
+        {% if orders.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ orders.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+        {% endif %}
+
+        {% for page in orders.paginator.page_range %}
+            {% if orders.number == page %}
+                <li class="page-item active">
+                    <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if orders.has_next %}
+            <li class="page-item">
+                <a href="?page={{ orders.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
