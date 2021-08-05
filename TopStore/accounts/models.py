@@ -35,7 +35,7 @@ class TopStoreUser(AbstractBaseUser, PermissionsMixin):
     objects = TopStoreUserManager()
 
     def __str__(self):
-        return f'User email: {self.email}'
+        return f'{self.username}'
 
 
 class Profile(models.Model):
