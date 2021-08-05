@@ -1,2 +1,2 @@
 # TopStore
-SoftUni - Python Web Framework Project
+SoftUni - Python Web Framework Project - Ecommerce shop
