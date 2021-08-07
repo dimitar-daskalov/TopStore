@@ -1,9 +1,9 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
-    <h3 class="ta-center">All Products</h3>
-    <div class="dropdown ta-right">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    <h1 class="title-big">All Products</h1>
+    <div class="dropdown text-right">
+        <button class="main-btn px-3 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             Categories
         </button>
@@ -17,22 +17,10 @@
     <br>
     <div class="d-flex justify-content-center flex-wrap">
         {% if not all_products %}
-            <h3 class="ta-center">No products available!</h3>
+            <h3 class="text-center">No products available!</h3>
         {% else %}
             {% for product in all_products %}
-                <div class="card">
-                    <div class="product-image"
-                         style="background-image: url(
-                                 {% if product.product_image %}{{ product.product_image.url }}{% else %}{% static 'images/generic_product.png' %}{% endif %}
-                                 ) ">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-title ta-center">{{ product.type }}</p>
-                        <p>{{ product.name }}</p>
-                        <p class="ta-center font-weight-bold text-danger">{{ product.price }} BGN</p>
-                        <a href="{% url 'details product' product.id %}" class="btn btn-primary">See details</a>
-                    </div>
-                </div>
+                {% include 'shared/product_card.html' %}
             {% endfor %}
         {% endif %}
     </div>
@@ -63,6 +51,11 @@
         {% endif %}
     </ul>
     <br>
-    <h3 class="ta-center">Go to <a href="{% url 'store' %}" class="btn btn-primary">Store</a></h3>
+    <h3 class="text-center">
+        Go to
+        <button class="main-btn">
+            <a href="{% url 'store' %}">Store</a>
+        </button>
+    </h3>
     <br>
 {% endblock %}

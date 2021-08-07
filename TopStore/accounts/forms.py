@@ -17,12 +17,12 @@ class SingInForm(forms.Form):
     )
 
     def clean_password(self):
-        self.user = authenticate(
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password'],
-        )
-
-        if not self.user:
+        try:
+            self.user = authenticate(
+                email=self.cleaned_data['email'],
+                password=self.cleaned_data['password'],
+            )
+        except:
             raise ValidationError('Email and/or password incorrect')
 
     def save(self):
@@ -36,6 +36,8 @@ class SingUpForm(UserCreationForm):
 
 
 class ProfileDetailsForm(forms.ModelForm):
+    profile_image = forms.ImageField(widget=forms.FileInput, )
+
     class Meta:
         model = Profile
         fields = ('profile_image',)

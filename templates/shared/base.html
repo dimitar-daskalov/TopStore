@@ -43,7 +43,7 @@
         <img src="{% static 'images/logo.png' %}" width="140px" alt="#"/>
     </a>
     {% if user.is_staff %}
-        <div class="button-add-product">
+        <div class="main-btn">
             <a href="{% url 'create product' %}">Add Product</a>
         </div>
     {% endif %}
@@ -121,7 +121,7 @@
             <!-- Grid column -->
             <hr class="clearfix w-100 d-md-none pb-3">
             <!-- Grid column -->
-            <div class="col-md-4 mb-md-0 mb-3 ta-center">
+            <div class="col-md-4 mb-md-0 mb-3 text-center">
                 <!-- Content -->
                 <img class="logo-footer" src="{% static 'images/logo.png' %}" alt="#">
                 <p>Order online and we will deliver. Founded in 2021.</p>
@@ -129,8 +129,8 @@
             <!-- Grid column -->
             <div class="col-md-2 mb-md-0 mb-3">
                 <!-- Links -->
-                <h5 class="text-uppercase ta-right">Useful Links</h5>
-                <ul class="list-unstyled">
+                <h5 class="text-uppercase text-right">Useful Links</h5>
+                <ul class="text-right list-unstyled">
                     <li>
                         <a href="{% url 'store' %}">Coupons</a>
                     </li>
@@ -148,8 +148,8 @@
             <!-- Grid column -->
             <div class="col-md-2 mb-md-0 mb-3">
                 <!-- Links -->
-                <h5 class="text-uppercase ta-right">Follow Us</h5>
-                <ul class="list-unstyled">
+                <h5 class="text-uppercase text-right">Follow Us</h5>
+                <ul class="text-right list-unstyled">
                     <li>
                         <a href="https://www.facebook.com/" target="_blank">Facebook</a>
                     </li>

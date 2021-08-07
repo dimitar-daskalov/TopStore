@@ -1,38 +1,38 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
-    <h2 class="ta-center">Orders</h2>
+    <h2 class="text-center">Orders</h2>
     <br>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Date Ordered</th>
-            <th scope="col">Address</th>
-            <th scope="col">City</th>
-            <th scope="col">Telephone</th>
-            <th scope="col">Zip Code</th>
-            <th scope="col">Items</th>
-            <th scope="col">Items Count</th>
-            <th scope="col">Total Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
+    <div class="table-responsive">
+        <table class="table table-striped completed-orders-table">
+            <thead>
             <tr>
-                <th scope="row"></th>
-                <td>{{ order.date_ordered }}</td>
-                <td>{{ order.address }}</td>
-                <td>{{ order.city }}</td>
-                <td>{{ order.telephone_number }}</td>
-                <td>{{ order.zip_code }}</td>
-                <td>{{ order.items }}</td>
-                <td>{{ order.total_cart_items_count }}</td>
-                <td class="text-danger">{{ order.total_cart_items_price }} BGN</td>
+                <th scope="col">Date Ordered</th>
+                <th scope="col" class="row-mobile">Address</th>
+                <th scope="col" class="row-mobile">City</th>
+                <th scope="col" class="row-mobile">Telephone</th>
+                <th scope="col" class="row-mobile">Zip Code</th>
+                <th scope="col" class="row-mobile-small">Items</th>
+                <th scope="col">Items Count</th>
+                <th scope="col">Total Price</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.date_ordered }}</td>
+                    <td class="row-mobile">{{ order.address }}</td>
+                    <td class="row-mobile">{{ order.city }}</td>
+                    <td class="row-mobile">{{ order.telephone_number }}</td>
+                    <td class="row-mobile">{{ order.zip_code }}</td>
+                    <td class="row-mobile-small">{{ order.items }}</td>
+                    <td>{{ order.total_cart_items_count }}</td>
+                    <td class="text-danger">{{ order.total_cart_items_price }} BGN</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <ul class="pagination justify-content-center">
         {% if orders.has_previous %}

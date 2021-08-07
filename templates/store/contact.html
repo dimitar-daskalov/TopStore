@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <div class="contact-us">
-        <h1 class="contact-us-h1">Contact Us</h1>
+        <h1 class="title-big">Contact Us</h1>
         <div class="wrapper-contact-us">
             <div class="contact-content-container">
                 <div class="content-contact-us">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="contact-form-container">
-                <h3 class="contact-us-h3">Leave Us a Message</h3>
+                <h3 class="title-small">Leave Us a Message</h3>
                 <form method="POST" action="{% url 'contact' %}">
                     {% csrf_token %}
                     <div class="change-form-1">
@@ -41,8 +41,8 @@
                         {{ form.errors }}
                     </div>
                     <div>
-                        <button class="button-contact-us">
-                            <input type="submit" value="SEND"/>
+                        <button class="main-btn">
+                            <input type="submit" value="Send"/>
                         </button>
                     </div>
                 </form>

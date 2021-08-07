@@ -2,36 +2,44 @@
 {% load static %}
 {% block content %}
     {% if user.is_staff %}
-        <div class="ta-center">
+        <div class="text-center">
             <h4><strong>You are logged as a staff!</strong></h4>
             <br>
             <h5>Staff does not have permission to order!</h5>
             <br>
-            <a href="{% url 'all products' %}">
-                <button class="btn btn-success">Go back</button>
-            </a>
+            <button class="main-btn">
+                <a href="{% url 'all products' %}">Go back</a>
+            </button>
         </div>
     {% else %}
         <div class="row flex-wrap">
-            <div class="col-lg-12">
+            <div class="w-100">
                 <div class="box-element">
-                    <a class="btn btn-success" href="{% url 'all products' %}"><i class="far fa-caret-square-left"></i>
-                        Continue Shopping
-                    </a>
+                    <button class="main-btn bgr-green">
+                        <a class="text-white" href="{% url 'all products' %}">
+                            <i class="far fa-caret-square-left"></i> &nbsp;Continue Shopping
+                        </a>
+                    </button>
                     <br>
                     <br>
                     <table class="table">
                         <tr>
-                            <th><h5>Items: <strong>&nbsp{{ order.total_cart_items_count }}</strong></h5></th>
-                            <th><h5>Total:
-                                <strong class="text-danger">
-                                    &nbsp{{ order.total_cart_items_price | floatformat:2 }} BGN
-                                </strong>
-                            </h5></th>
-                            <th class="ta-right">
-                                <a class="btn btn-success" href="{% url 'checkout' %}">Checkout
-                                    <i class="far fa-caret-square-right"></i>
-                                </a>
+                            <th>
+                                <h5>Items: <strong>&nbsp;{{ order.total_cart_items_count }}</strong></h5>
+                            </th>
+                            <th>
+                                <h5>Total:
+                                    <strong class="text-danger">
+                                        &nbsp;{{ order.total_cart_items_price | floatformat:2 }} BGN
+                                    </strong>
+                                </h5>
+                            </th>
+                            <th class="text-right">
+                                <button class="main-btn bgr-green">
+                                    <a class="text-white" href="{% url 'checkout' %}">
+                                        Checkout &nbsp;<i class="far fa-caret-square-right"></i>
+                                    </a>
+                                </button>
                             </th>
                         </tr>
                     </table>
@@ -39,29 +47,31 @@
                 <br>
                 <div class="box-element">
                     <div class="cart-row">
-                        <div style="flex:2"></div>
-                        <div style="flex:2"><strong>Item Name</strong></div>
-                        <div style="flex:1"><strong>Price</strong></div>
-                        <div style="flex:1"><strong>Quantity</strong></div>
-                        <div style="flex:1"><strong>Total</strong></div>
+                        <div class="product-image-cart mx-1"><strong>Image</strong></div>
+                        <div class="item-product-name mx-1"><strong>Name</strong></div>
+                        <div class="mx-1" style="flex:1"><strong>Price</strong></div>
+                        <div class="mx-1" style="flex:1"><strong>Quantity</strong></div>
+                        <div class="mx-1" style="flex:1"><strong>Total</strong></div>
                     </div>
                     {% if not items %}
                         <p>No items added!</p>
                     {% else %}
                         {% for item in items %}
                             <div class="cart-row">
-                                <div class="product-image-cart" style="flex:2">
+                                <div class="product-image-cart mx-1">
                                     {% if item.product.product_image %}
                                         <img src="{{ item.product.product_image.url }}" alt="">
                                     {% else %}
                                         <img src="{% static 'images/generic_product.png' %}" alt="">
                                     {% endif %}
                                 </div>
-                                <div style="flex:2"><strong>{{ item.product.name }}</strong></div>
-                                <div class="text-danger" style="flex:1"><p>{{ item.product.price | floatformat:2 }}
-                                    BGN</p>
+                                <div class="mx-1 item-product-name">
+                                    <strong>{{ item.product.name }}</strong>
                                 </div>
-                                <div style="flex:1">
+                                <div class="text-danger mx-1" style="flex:1">
+                                    <p>{{ item.product.price | floatformat:2 }} BGN</p>
+                                </div>
+                                <div class="mx-1" style="flex:1">
                                     <div class="quantity d-flex align-items-center">
                                         <i data-product={{ item.product.id }} data-action="remove"
                                            class="fas fa-minus-circle chg-quantity update-cart"></i>
@@ -70,7 +80,7 @@
                                            class="fas fa-plus-circle chg-quantity update-cart"></i>
                                     </div>
                                 </div>
-                                <div style="flex:1">
+                                <div class="mx-1" style="flex:1">
                                     <p class="text-danger">
                                         <strong>{{ item.total_price_item }} BGN</strong>
                                     </p>

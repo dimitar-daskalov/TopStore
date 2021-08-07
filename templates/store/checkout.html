@@ -2,22 +2,24 @@
 {% load static %}
 {% block content %}
     {% if user.is_staff %}
-        <div class="ta-center">
+        <div class="text-center">
             <h4><strong>You are logged as a staff!</strong></h4>
             <br>
             <h5>Staff does not have permission to order!</h5>
             <br>
-            <a href="{% url 'all products' %}">
-                <button class="btn btn-success">Go back</button>
-            </a>
+            <button class="main-btn bgr-green">
+                <a class="text-white" href="{% url 'all products' %}">Go back</a>
+            </button>
         </div>
     {% else %}
         <div class="row">
             <div class="col-lg-6">
                 <div class="box-element">
-                    <a class="btn btn-success" href="{% url 'cart' %}"><i class="far fa-caret-square-left"></i>
-                        Back to Cart
-                    </a>
+                    <button class="main-btn bgr-green">
+                        <a class="text-white" href="{% url 'cart' %}">
+                            <i class="far fa-caret-square-left"></i>&nbsp; Back to Cart
+                        </a>
+                    </button>
                     <hr>
                     <h3>Order Summary</h3>
                     <hr>
@@ -26,66 +28,66 @@
                     {% else %}
                         {% for item in items %}
                             <div class="cart-row">
-                                <div class="product-image-cart" style="flex:2">
+                                <div class="product-image-cart">
                                     {% if item.product.product_image %}
                                         <img src="{{ item.product.product_image.url }}" alt="">
                                     {% else %}
                                         <img src="{% static 'images/generic_product.png' %}" alt="">
                                     {% endif %}
                                 </div>
-                                <div style="flex:2"><p>{{ item.product.name }}</p></div>
-                                <div class="text-danger" style="flex:1"><p>{{ item.product.price }} BGN</p></div>
-                                <div style="flex:1"><p>&nbsp x{{ item.quantity }}</p></div>
+                                <div class="mx-1" style="flex:2"><p>{{ item.product.name }}</p></div>
+                                <div class="text-danger mx-1" style="flex:1"><p>{{ item.product.price }} BGN</p></div>
+                                <div class="mx-1" style="flex:1"><p>&nbsp; x{{ item.quantity }}</p></div>
                             </div>
                         {% endfor %}
                         {% if items %}
-                            <h5 class="ta-right">Items:&nbsp {{ order.total_cart_items_count }}</h5>
+                            <h5 class="text-right">Items:&nbsp; {{ order.total_cart_items_count }}</h5>
                             <hr>
-                            <h5 class="ta-right text-danger">Total:&nbsp {{ order.total_cart_items_price }}BGN</h5>
+                            <h5 class="text-right text-danger">Total:&nbsp; {{ order.total_cart_items_price }} BGN</h5>
                         {% else %}
-                            <h5>Items:&nbsp 0</h5>
+                            <h5>Items:&nbsp;0</h5>
                             <hr>
-                            <h5 class="ta-right text-danger">Total:&nbsp 0 BGN</h5>
+                            <h5 class="text-right text-danger">Total:&nbsp; 0 BGN</h5>
                         {% endif %}
                     {% endif %}
                 </div>
             </div>
-
             <div class="col-lg-6">
                 <div class="box-element" id="form-wrapper">
                     <form method="POST" action="{% url 'checkout' %}">
                         <p><strong>Additional Information:</strong></p>
                         <hr>
-                        <label class="form-field">
+                        <label>
                             {% csrf_token %}
                             {{ form.order }}
                         </label>
-                        <label class="form-field">
+                        <label>
                             {{ form.user }}
                         </label>
-                        <label class="form-field">
+                        <label>
                             {{ form.address }}
                         </label>
-                        <label class="form-field">
+                        <label>
                             {{ form.city }}
                         </label>
-                        <label class="form-field">
+                        <label>
                             {{ form.zip_code }}
                         </label>
-                        <label class="form-field">
+                        <label>
                             {{ form.telephone_number }}
                         </label>
-                        <label class="form-field">
+                        <label>
                             {{ form.comment }}
                             {{ form.errors }}
                         </label>
                         <hr>
                         {% if items %}
-                            <input id="form-button" class="btn btn-success btn-block" type="submit"
-                                   value="Complete Order">
+                            <button class="main-btn bgr-green" type="submit">
+                                <input id="form-button" class="text-white" type="submit" value="Complete Order"/>
+                            </button>
                         {% else %}
-                            <button type="submit" class="btn btn-secondary btn-block" disabled="disabled">
-                                Complete Order
+                            <button class="main-btn bgr-green" type="submit" disabled="disabled">
+                                <span class="text-white">Complete Order</span>
                             </button>
                         {% endif %}
                     </form>

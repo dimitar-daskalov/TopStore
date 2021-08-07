@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -67,10 +68,12 @@ def checkout(request):
     if request.method == 'POST':
         form = OrderForm(request.POST, initial={'order': order.id, 'user': user.id})
         if form.is_valid():
+            form.save()
             order.is_completed = True
+            order.date_ordered = datetime.now()
             order.save()
             request.session['cart_items_count'] = 0
-            form.save()
+            Order.objects.create(user=user, is_completed=False)
             return render(request, 'store/checkout_successful.html')
     else:
         form = OrderForm(initial={'order': order.id, 'user': user.id})

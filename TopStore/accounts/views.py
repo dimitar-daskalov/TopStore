@@ -87,7 +87,7 @@ def completed_orders_user(request):
     if user.is_staff:
         return redirect('all products')
 
-    orders = Order.objects.filter(user=user, is_completed=True)
+    orders = Order.objects.filter(user=user, is_completed=True).order_by('-date_ordered')
 
     for order in orders:
         order.address = OrderInformation.objects.filter(order=order.id).values_list('address', flat=True)[0]

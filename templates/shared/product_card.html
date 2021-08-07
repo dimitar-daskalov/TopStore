@@ -1,0 +1,17 @@
+{% load static %}
+<div class="card">
+    <div class="product-image"
+         style="background-image: url(
+                 {% if product.product_image %}{{ product.product_image.url }}{% else %}{% static 'images/generic_product.png' %}{% endif %}
+                 ) ">
+    </div>
+    <div class="card-body">
+        <hr class="w-100"/>
+        <p class="card-title text-center">{{ product.type }}</p>
+        <p>{{ product.name }}</p>
+        <p class="text-center font-weight-bold text-danger">{{ product.price }} BGN</p>
+        <button class="main-btn">
+             <a href="{% url 'details product' product.id %}">See details</a>
+        </button>
+    </div>
+</div>
