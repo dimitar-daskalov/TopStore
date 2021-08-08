@@ -1,9 +1,10 @@
 from django import forms
 
 from TopStore.products.models import Product, Review
+from TopStore.shared.bootstrap_form_mixin import BootstrapFormMixin
 
 
-class ProductForm(forms.ModelForm):
+class ProductForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         exclude = ('user',)

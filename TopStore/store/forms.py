@@ -1,15 +1,16 @@
 from django import forms
 
+from TopStore.shared.bootstrap_form_mixin import BootstrapFormMixin
 from TopStore.store.models import ContactMessage, OrderInformation
 
 
-class ContactForm(forms.ModelForm):
+class ContactForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = '__all__'
 
 
-class OrderForm(forms.ModelForm):
+class OrderForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = OrderInformation
         fields = '__all__'

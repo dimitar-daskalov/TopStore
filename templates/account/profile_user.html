@@ -5,16 +5,19 @@
         <h3 class="title-big text-capitalize">Welcome, {{ user.username | capfirst }}!</h3>
         <br>
         {% if account.profile_image %}
-            <img class="rounded-circle profile-image-account" src="{{ account.profile_image.url }}" alt="">
+            <img class="rounded-circle profile-image-account m-2" src="{{ account.profile_image.url }}" alt="">
         {% else %}
-            <img class="rounded-circle profile-image-account" src="{% static 'images/generic_account.png' %}" alt="">
+            <img class="rounded-circle profile-image-account m-2" src="{% static 'images/generic_account.png' %}"
+                 alt="">
         {% endif %}
         <div class="d-flex justify-content-center align-items-center w-100 m-auto flex-column">
-            <form action="{% url 'details account user' %}" method="post" enctype="multipart/form-data">
+            <form class="d-flex m-10" action="{% url 'details account user' %}" method="post"
+                  enctype="multipart/form-data">
+                <br>
                 {% csrf_token %}
                 {{ form.profile_image }}
                 <br/>
-                <button class="main-btn bgr-red m-2" type="submit">
+                <button class="main-btn bgr-red mx-2" type="submit">
                     <span class="text-white">Update</span>
                 </button>
             </form>

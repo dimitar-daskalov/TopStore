@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 from TopStore.accounts.models import Profile
+from TopStore.shared.bootstrap_form_mixin import BootstrapFormMixin
 
 UserModel = get_user_model()
 
@@ -35,8 +36,10 @@ class SingUpForm(UserCreationForm):
         fields = ('email', 'username')
 
 
-class ProfileDetailsForm(forms.ModelForm):
-    profile_image = forms.ImageField(widget=forms.FileInput, )
+class ProfileDetailsForm(BootstrapFormMixin, forms.ModelForm):
+    profile_image = forms.ImageField(
+        widget=forms.FileInput(),
+    )
 
     class Meta:
         model = Profile
