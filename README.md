@@ -5,7 +5,7 @@ SoftUni - Python Web Framework End Project
 
 ## Overview
 
-TopStore is a Ecommerce store web application which sumulates ecommerce store platform.
+TopStore is a Ecommerce store web application which simulates ecommerce store platform.
 
 Implemented using Django Framework.
 
