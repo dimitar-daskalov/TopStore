@@ -5,36 +5,32 @@ SoftUni - Python Web Framework End Project
 
 ## Overview
 
-TopStore is a Ecommerce store web application which simulates ecommerce store platform.
+TopStore is an Ecommerce store web application built on Django MTV (Model, Template, View) architecture.
 
-Implemented using Django Framework.
-
-Source control system - Github.
+Version control system - Git.
 
 PostgreSQL DB.
 
 Function Based Views.
 
-20 endpoints
+20 endpoints.
 
 Template inheritance.
 
 Error Handling and Data Validations.
 
-Tests included.
-
-Login/register.
+Unit Tests.
 
 Extended Django user.
 
 Several types of users functionality.
 
-**Unauthenticated Users** - Can leave a contact message to the staff, if name and email is provided.
+**Unauthenticated Users** - Can leave a contact message to the staff, if name and email are correctly provided.
 
-They can also see the store/, contact/, about/, product/all/ and product/details/ pages.
+They can also view the store/, contact/, about/, product/all/ and product/details/ pages.
 
 
-**Normal Authenticated Users** - They can like, review, add products to their cart and complete a checkout. 
+**Common Authenticated Users** - They can like, review, add or remove products from their cart and complete an order. 
 
 They can also check their order history and leave a contact message to the staff.
 
@@ -49,9 +45,9 @@ They can check the TopStore users, contact messages and all the products and ord
 
 **How to make an account?**
 
-You can make account through /account/register/ if Email, Username and Password are correctly provided.
+You can create an account through /account/register/ if Email, Username and Password are correctly provided.
 
-Or you can make account with manage.py.
+Or you can use manage.py.
 
 
 ## Installation
