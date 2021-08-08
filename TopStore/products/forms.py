@@ -10,7 +10,7 @@ class ProductForm(BootstrapFormMixin, forms.ModelForm):
         exclude = ('user',)
 
 
-class ReviewForm(forms.ModelForm):
+class ReviewForm(BootstrapFormMixin, forms.ModelForm):
     product_pk = forms.IntegerField(
         widget=forms.HiddenInput()
     )

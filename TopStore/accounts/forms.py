@@ -30,7 +30,7 @@ class SingInForm(forms.Form):
         return self.user
 
 
-class SingUpForm(UserCreationForm):
+class SingUpForm(BootstrapFormMixin, UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('email', 'username')
