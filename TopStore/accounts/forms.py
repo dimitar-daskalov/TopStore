@@ -9,7 +9,7 @@ from TopStore.shared.bootstrap_form_mixin import BootstrapFormMixin
 UserModel = get_user_model()
 
 
-class SingInForm(forms.Form):
+class SingInForm(BootstrapFormMixin, forms.Form):
     user = None
     email = forms.EmailField(
     )
