@@ -17,6 +17,8 @@ Function Based Views.
 
 Template inheritance.
 
+Responsive design.
+
 Error Handling and Data Validations.
 
 Unit Tests.
