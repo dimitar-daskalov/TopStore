@@ -9,7 +9,7 @@ from TopStore.shared.bootstrap_form_mixin import BootstrapFormMixin
 UserModel = get_user_model()
 
 
-class SingInForm(BootstrapFormMixin, forms.Form):
+class SignInForm(BootstrapFormMixin, forms.Form):
     user = None
     email = forms.EmailField(
     )
@@ -18,13 +18,12 @@ class SingInForm(BootstrapFormMixin, forms.Form):
     )
 
     def clean_password(self):
-        try:
-            self.user = authenticate(
-                email=self.cleaned_data['email'],
-                password=self.cleaned_data['password'],
-            )
-        except:
-            raise ValidationError('Email and/or password incorrect')
+        self.user = authenticate(
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password'],
+        )
+        if not self.user:
+            raise ValidationError('Email and/or password incorrect!')
 
     def save(self):
         return self.user

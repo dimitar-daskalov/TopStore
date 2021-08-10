@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from TopStore.products.forms import ProductForm, ReviewForm
@@ -10,7 +12,7 @@ from TopStore.shared.filter_types import types_filter
 # Create your views here.
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def create_product(request):
     if not request.user.is_staff:
         return redirect('store')
@@ -29,12 +31,16 @@ def create_product(request):
     return render(request, 'product/create_product.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def update_product(request, pk):
     if not request.user.is_staff:
         return redirect('store')
 
-    product = Product.objects.get(pk=pk)
+    try:
+        product = Product.objects.get(pk=pk)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound()
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
@@ -50,12 +56,16 @@ def update_product(request, pk):
     return render(request, 'product/update_product.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def delete_product(request, pk):
     if not request.user.is_staff:
         return redirect('store')
 
-    product = Product.objects.get(pk=pk)
+    try:
+        product = Product.objects.get(pk=pk)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound()
+
     if request.method == 'POST':
         product.delete()
         return redirect('store')
@@ -66,9 +76,16 @@ def delete_product(request, pk):
     return render(request, 'product/delete_product.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def like_product(request, pk):
-    product = Product.objects.get(pk=pk)
+    if request.user.is_staff:
+        return redirect('store')
+
+    try:
+        product = Product.objects.get(pk=pk)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound()
+
     like_object_by_user = product.like_set.filter(user_id=request.user.id) \
         .first()
     if like_object_by_user:
@@ -82,8 +99,11 @@ def like_product(request, pk):
     return redirect('details product', product.id)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def review_product(request, pk):
+    if request.user.is_staff:
+        return redirect('store')
+
     form = ReviewForm(request.POST)
     if form.is_valid():
         review = form.save(commit=False)
@@ -94,7 +114,11 @@ def review_product(request, pk):
 
 
 def details_product(request, pk):
-    product = Product.objects.get(pk=pk)
+    try:
+        product = Product.objects.get(pk=pk)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound()
+
     product.likes_count = product.like_set.count()
 
     is_liked_by_user = product.like_set.filter(user_id=request.user.id) \

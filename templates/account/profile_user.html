@@ -28,9 +28,61 @@
                     </button>
                 {% endif %}
                 <button class="main-btn m-2">
-                    <a href="{% url 'sing out user' %}">Sign Out </a>
+                    <a href="{% url 'sign out user' %}">Sign Out </a>
                 </button>
             </div>
         </div>
+        {% if liked_products %}
+            <h5 class="title-big text-capitalize">Liked products</h5>
+            <br>
+            <div class="d-flex justify-content-center flex-wrap">
+                {% for liked_product in liked_products %}
+                    <div class="card">
+                        <div class="product-image"
+                             style="background-image: url(
+                                     {% if liked_product.product.product_image %}{{ liked_product.product.product_image.url }}{% else %}{% static 'images/generic_product.png' %}{% endif %}
+                                     ) ">
+                        </div>
+                        <div class="card-body">
+                            <hr class="w-100"/>
+                            <p class="card-title text-center">{{ liked_product.product.type }}</p>
+                            <p>{{ liked_product.product.name }}</p>
+                            <p class="text-center font-weight-bold text-danger">{{ liked_product.product.price }}
+                                BGN</p>
+                            <button class="main-btn">
+                                <a href="{% url 'details product' liked_product.product.id %}">See details</a>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <ul class="pagination justify-content-center">
+            {% if liked_products.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ liked_products.previous_page_number }}" class="page-link">&laquo;</a>
+                </li>
+            {% endif %}
+
+            {% for page in liked_products.paginator.page_range %}
+                {% if liked_products.number == page %}
+                    <li class="page-item active">
+                        <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if liked_products.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ liked_products.next_page_number }}" class="page-link">&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+        <br>
     </div>
 {% endblock %}

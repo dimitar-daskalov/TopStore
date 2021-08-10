@@ -4,7 +4,7 @@ from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from TopStore.accounts.forms import SingInForm, SingUpForm, ProfileDetailsForm
+from TopStore.accounts.forms import SignInForm, SingUpForm, ProfileDetailsForm
 from TopStore.accounts.models import Profile
 from TopStore.products.models import Like
 from TopStore.store.models import Order, OrderInformation
@@ -13,18 +13,21 @@ from TopStore.store.models import Order, OrderInformation
 # Create your views here.
 
 
-def sing_in_user(request):
+def sign_in_user(request):
+    if request.user.is_authenticated:
+        return redirect('all products')
+
     if request.method == 'POST':
-        form = SingInForm(request.POST)
+        form = SignInForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             order = Order.objects.get(user=user, is_completed=False)
             request.session['cart_items_count'] = order.total_cart_items_count
-
             return redirect('store')
+
     else:
-        form = SingInForm()
+        form = SignInForm()
 
     context = {
         'form': form,
@@ -33,17 +36,23 @@ def sing_in_user(request):
     return render(request, 'account/sign_in_user.html', context)
 
 
-def sing_out_user(request):
+@login_required(login_url=reverse_lazy('sign in user'))
+def sign_out_user(request):
     logout(request)
     return redirect('store')
 
 
-def sing_up_user(request):
+def sign_up_user(request):
+    if request.user.is_authenticated:
+        return redirect('all products')
+
     if request.method == 'POST':
         form = SingUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
+            order, created = Order.objects.get_or_create(user=user, is_completed=False)
+            request.session['cart_items_count'] = order.total_cart_items_count
             return redirect('store')
     else:
         form = SingUpForm()
@@ -52,10 +61,10 @@ def sing_up_user(request):
         'form': form,
     }
 
-    return render(request, 'account/sing_up_user.html', context)
+    return render(request, 'account/sign_up_user.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def details_profile_user(request):
     profile = Profile.objects.get(pk=request.user.id)
     if request.method == 'POST':
@@ -70,7 +79,17 @@ def details_profile_user(request):
     else:
         form = ProfileDetailsForm(instance=profile)
 
-    liked_products = Like.objects.filter(user_id=request.user.id)
+    liked_products = Like.objects.filter(user_id=request.user.id).order_by('-product_id')
+
+    paginator = Paginator(liked_products, 4)
+    page = request.GET.get('page')
+
+    try:
+        liked_products = paginator.page(page)
+    except PageNotAnInteger:
+        liked_products = paginator.page(1)
+    except EmptyPage:
+        liked_products = paginator.page(paginator.num_pages)
 
     context = {
         'form': form,
@@ -81,7 +100,7 @@ def details_profile_user(request):
     return render(request, 'account/profile_user.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def completed_orders_user(request):
     user = request.user
     if user.is_staff:

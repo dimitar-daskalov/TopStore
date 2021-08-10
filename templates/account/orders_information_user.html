@@ -2,61 +2,66 @@
 {% load static %}
 {% block content %}
     <h2 class="text-center">Orders</h2>
-    <br>
-    <div class="table-responsive">
-        <table class="table table-striped completed-orders-table">
-            <thead>
-            <tr>
-                <th scope="col">Date Ordered</th>
-                <th scope="col" class="row-mobile">Address</th>
-                <th scope="col" class="row-mobile">City</th>
-                <th scope="col" class="row-mobile">Telephone</th>
-                <th scope="col" class="row-mobile">Zip Code</th>
-                <th scope="col" class="row-mobile-small">Items</th>
-                <th scope="col">Items Count</th>
-                <th scope="col">Total Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for order in orders %}
+    {% if not orders %}
+        <br>
+        <h4 class="text-center">No orders available!</h4>
+    {% else %}
+        <br>
+        <div class="table-responsive">
+            <table class="table table-striped completed-orders-table">
+                <thead>
                 <tr>
-                    <td>{{ order.date_ordered }}</td>
-                    <td class="row-mobile">{{ order.address }}</td>
-                    <td class="row-mobile">{{ order.city }}</td>
-                    <td class="row-mobile">{{ order.telephone_number }}</td>
-                    <td class="row-mobile">{{ order.zip_code }}</td>
-                    <td class="row-mobile-small">{{ order.items }}</td>
-                    <td>{{ order.total_cart_items_count }}</td>
-                    <td class="text-danger">{{ order.total_cart_items_price }} BGN</td>
+                    <th scope="col">Date Ordered</th>
+                    <th scope="col" class="row-mobile">Address</th>
+                    <th scope="col" class="row-mobile">City</th>
+                    <th scope="col" class="row-mobile">Telephone</th>
+                    <th scope="col" class="row-mobile">Zip Code</th>
+                    <th scope="col" class="row-mobile-small">Items</th>
+                    <th scope="col">Items Count</th>
+                    <th scope="col">Total Price</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.date_ordered }}</td>
+                        <td class="row-mobile">{{ order.address }}</td>
+                        <td class="row-mobile">{{ order.city }}</td>
+                        <td class="row-mobile">{{ order.telephone_number }}</td>
+                        <td class="row-mobile">{{ order.zip_code }}</td>
+                        <td class="row-mobile-small">{{ order.items }}</td>
+                        <td>{{ order.total_cart_items_count }}</td>
+                        <td class="text-danger">{{ order.total_cart_items_price }} BGN</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <ul class="pagination justify-content-center">
-        {% if orders.has_previous %}
-            <li class="page-item">
-                <a href="?page={{ orders.previous_page_number }}" class="page-link">&laquo;</a>
-            </li>
-        {% endif %}
-
-        {% for page in orders.paginator.page_range %}
-            {% if orders.number == page %}
-                <li class="page-item active">
-                    <a href="?page={{ page }}" class="page-link">{{ page }}</a>
-                </li>
-            {% else %}
+        <ul class="pagination justify-content-center">
+            {% if orders.has_previous %}
                 <li class="page-item">
-                    <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                    <a href="?page={{ orders.previous_page_number }}" class="page-link">&laquo;</a>
                 </li>
             {% endif %}
-        {% endfor %}
 
-        {% if orders.has_next %}
-            <li class="page-item">
-                <a href="?page={{ orders.next_page_number }}" class="page-link">&raquo;</a>
-            </li>
-        {% endif %}
-    </ul>
+            {% for page in orders.paginator.page_range %}
+                {% if orders.number == page %}
+                    <li class="page-item active">
+                        <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if orders.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ orders.next_page_number }}" class="page-link">&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 {% endblock %}

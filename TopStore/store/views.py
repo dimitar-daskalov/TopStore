@@ -29,7 +29,7 @@ def store(request):
     return render(request, 'store/store.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def cart(request):
     user = request.user
     order, is_completed = Order.objects.get_or_create(user=user, is_completed=False)
@@ -51,7 +51,7 @@ def cart(request):
     return render(request, 'store/cart.html', context)
 
 
-@login_required(login_url=reverse_lazy('sing in user'))
+@login_required(login_url=reverse_lazy('sign in user'))
 def checkout(request):
     user = request.user
     order, is_completed = Order.objects.get_or_create(user=user, is_completed=False)
