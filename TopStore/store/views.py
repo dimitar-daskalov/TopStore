@@ -31,8 +31,7 @@ def store(request):
 
 @login_required(login_url=reverse_lazy('sign in user'))
 def cart(request):
-    user = request.user
-    order, is_completed = Order.objects.get_or_create(user=user, is_completed=False)
+    order, is_completed = Order.objects.get_or_create(user=request.user, is_completed=False)
 
     items = order.orderitem_set.all()
     for item in items:
@@ -121,9 +120,8 @@ def update_item(request):
     product_id = data['productId']
     action = data['action']
 
-    user = request.user
     product = Product.objects.get(id=product_id)
-    order, created = Order.objects.get_or_create(user=user, is_completed=False)
+    order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
     order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
 
     if action == 'add':

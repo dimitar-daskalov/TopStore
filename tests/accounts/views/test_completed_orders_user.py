@@ -36,7 +36,3 @@ class CompletedOrdersUserTests(TestCase):
         )
         self.assertEqual(order, Order.objects.filter(user=self.user, is_completed=True)[0])
         self.assertEqual(200, response.status_code)
-
-    def test_DetailsWhenNotAuthenticatedUser_expectToRedirect(self):
-        response = self.client.post(reverse('completed orders user'))
-        self.assertEqual(302, response.status_code)
