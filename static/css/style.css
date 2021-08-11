@@ -357,11 +357,16 @@ footer {
 }
 
 .card {
+    transition: transform .2s;
     width: 220px;
     margin: 5px 20px;
     min-width: 220px;
     overflow: hidden;
     border-radius: 5px;
+}
+
+.card:hover {
+    transform: scale(1.025);
 }
 
 .card .card-body {
