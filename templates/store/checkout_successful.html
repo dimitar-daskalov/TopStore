@@ -1,6 +1,9 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
+    {% block title %}
+        <title>{{ user.username | capfirst }}'s Checkout | TopStore</title>
+    {% endblock %}
     <div class="contact-message">
         <h1 class="title-big text-capitalize">Your order was send successfully!</h1>
         <br>

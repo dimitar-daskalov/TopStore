@@ -1,6 +1,9 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
+    {% block title %}
+        <title>{{ user.username | capfirst }}'s Orders | TopStore</title>
+    {% endblock %}
     <h2 class="text-center">Orders</h2>
     {% if not orders %}
         <br>

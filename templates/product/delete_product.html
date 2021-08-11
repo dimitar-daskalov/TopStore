@@ -1,12 +1,15 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
+    {% block title %}
+        <title>Delete Product | TopStore</title>
+    {% endblock %}
     <div class="row">
         <div class="col-lg-12 text-center">
             <h3>Are you sure you want to delete {{ product.name }}?</h3>
-            <form class="d-inline m-5" method="post">
+            <form class="d-inline" method="post">
                 {% csrf_token %}
-                <input type="submit" value="Confirm" class="main-btn bgr-red text-white"/>
+                <input type="submit" value="Confirm" class="m-5 px-4 main-btn bgr-red text-white"/>
             </form>
             <button class="m-5 main-btn">
                 <a href="javascript:history.back()">No, go back</a>

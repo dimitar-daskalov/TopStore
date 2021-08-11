@@ -1,6 +1,9 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
+    {% block title %}
+        <title>{{ user.username | capfirst }} | TopStore</title>
+    {% endblock %}
     <div class="text-center">
         <h3 class="title-big text-capitalize">Welcome, {{ user.username | capfirst }}!</h3>
         <br>

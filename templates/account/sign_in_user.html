@@ -1,5 +1,8 @@
 {% extends 'shared/base.html' %}
 {% block content %}
+    {% block title %}
+        <title>Sign In | TopStore</title>
+    {% endblock %}
     <div class="container text-center">
         <form class="col-lg-4 m-auto" method="POST" action="{% url 'sign in user' %}">
             <h2>Sign in</h2>

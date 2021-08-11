@@ -114,7 +114,7 @@ def completed_orders_user(request):
         order.telephone_number = \
             OrderInformation.objects.filter(order=order.id).values_list('telephone_number', flat=True)[0]
         order.zip_code = OrderInformation.objects.filter(order=order.id).values_list('zip_code', flat=True)[0]
-        order.items = ', '.join(order.orderitem_set.all().values_list('product__name', flat=True))
+        order.items = '| '.join(order.orderitem_set.all().values_list('product__name', flat=True))
 
     paginator = Paginator(orders, 5)
     page = request.GET.get('page')
