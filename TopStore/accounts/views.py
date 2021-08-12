@@ -4,7 +4,7 @@ from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from TopStore.accounts.forms import SignInForm, SingUpForm, ProfileDetailsForm
+from TopStore.accounts.forms import SignInForm, SignUpForm, ProfileDetailsForm
 from TopStore.accounts.models import Profile
 from TopStore.products.models import Like
 from TopStore.store.models import Order, OrderInformation
@@ -47,7 +47,7 @@ def sign_up_user(request):
         return redirect('all products')
 
     if request.method == 'POST':
-        form = SingUpForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -55,7 +55,7 @@ def sign_up_user(request):
             request.session['cart_items_count'] = order.total_cart_items_count
             return redirect('store')
     else:
-        form = SingUpForm()
+        form = SignUpForm()
 
     context = {
         'form': form,

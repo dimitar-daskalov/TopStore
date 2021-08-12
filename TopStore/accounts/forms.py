@@ -29,7 +29,7 @@ class SignInForm(BootstrapFormMixin, forms.Form):
         return self.user
 
 
-class SingUpForm(BootstrapFormMixin, UserCreationForm):
+class SignUpForm(BootstrapFormMixin, UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('email', 'username')
