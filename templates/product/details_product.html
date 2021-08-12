@@ -48,7 +48,7 @@
                         {% if user.is_authenticated %}
                             <button data-product={{ product.id }} data-action="add"
                                     class="main-btn bgr-red update-cart">
-                                <span class="text-white"> Add to Cart </span>
+                                <span class="text-white">Add to Cart</span>
                             </button>
                         {% else %}
                             <button class="main-btn bgr-red">
@@ -65,7 +65,15 @@
                     {% if reviews %}
                         {% for review in reviews %}
                             <div class="box text-left">
-                                <h5><strong>{{ review.user | capfirst }}</strong> : <em>{{ review.text }}</em></h5>
+                                <h5>{% if review.user.profile.profile_image %}
+                                    <img class="rounded-circle profile-image-nav"
+                                         src="{{ review.user.profile.profile_image.url }}" alt="">
+                                {% else %}
+                                    <img class="rounded-circle profile-image-nav"
+                                         src="{% static 'images/generic_account.png' %}" alt="">
+                                {% endif %}<strong class="text-secondary">&nbsp;{{ review.user | capfirst }}</strong> :
+                                    <em>{{ review.text }}</em>
+                                </h5>
                                 <hr>
                             </div>
                         {% endfor %}

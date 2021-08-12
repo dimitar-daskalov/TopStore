@@ -20,7 +20,7 @@ class ContactMessage(models.Model):
     message = models.TextField(
         max_length=250,
         validators=[
-            MinLengthValidator(2),
+            MinLengthValidator(6),
         ],
     )
     answered = models.BooleanField(default=False)

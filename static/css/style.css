@@ -338,6 +338,10 @@ footer {
     float: right;
 }
 
+.invisible {
+    height: 0;
+}
+
 /* contact message */
 
 .contact-message {
@@ -518,6 +522,7 @@ footer {
 /* end cart and checkout */
 
 /* completed orders */
+
 @media only screen and (max-width: 1024px) {
     .completed-orders-table .row-mobile {
         display: none;
