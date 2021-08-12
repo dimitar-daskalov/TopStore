@@ -18,12 +18,15 @@ class SignInForm(BootstrapFormMixin, forms.Form):
     )
 
     def clean_password(self):
-        self.user = authenticate(
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password'],
-        )
-        if not self.user:
-            raise ValidationError('Email and/or password incorrect!')
+        try:
+            self.user = authenticate(
+                email=self.cleaned_data['email'],
+                password=self.cleaned_data['password'],
+            )
+            if not self.user:
+                raise ValidationError('Enter a valid password.')
+        except KeyError:
+            raise ValidationError('Enter a valid password.')
 
     def save(self):
         return self.user

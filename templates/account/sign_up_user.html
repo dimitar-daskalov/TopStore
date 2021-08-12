@@ -8,14 +8,29 @@
             <form method="post" action="{% url 'sign up user' %}">
                 <h2>Sign up</h2>
                 {% csrf_token %}
-                {{ form }}
-                {{ form.errors }}
+                <div class="change-form-1">
+                    <label for="name">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="change-form-2">
+                    <label for="name">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="change-form-3">
+                    <label for="name">Password</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="change-form-4">
+                    <label for="name">Confirm Password</label>
+                    {{ form.password2 }}
+                    {{ form.errors }}
+                </div>
                 <br/>
                 <button class="main-btn m-2" type="submit"><span>Sign up</span></button>
-                <br>
+                <br/>
                 <span class="text-right">Have an account?
-                        <a href="{% url 'sign in user' %}" class="auth-label">Sign in</a>
-                    </span>
+                    <a href="{% url 'sign in user' %}" class="auth-label">Sign in</a>
+                </span>
             </form>
         </div>
     </div>
