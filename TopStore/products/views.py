@@ -139,6 +139,7 @@ def details_product(request, pk):
 def all_products(request):
     all_product_list = Product.objects.all().order_by('id')
 
+    # returns the unique types for the dropdown menu
     types = types_filter(all_product_list)
 
     paginator = Paginator(all_product_list, 8)
@@ -160,10 +161,11 @@ def all_products(request):
 
 
 def filter_products(request, product_type):
-    product_type = product_type[:-1].capitalize() if product_type != 'headphones' else product_type.capitalize()
+    product_type = product_type[:-1] if product_type != 'Headphones' else product_type
     filtered_products = Product.objects.filter(type=product_type)
     products = Product.objects.all()
 
+    # returns the unique types for the dropdown menu
     types = types_filter(products)
 
     paginator = Paginator(filtered_products, 8)

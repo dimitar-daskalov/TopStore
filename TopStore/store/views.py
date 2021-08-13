@@ -125,10 +125,10 @@ def update_item(request):
     order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
 
     if action == 'add':
-        order_item.quantity = (order_item.quantity + 1)
+        order_item.quantity += 1
         request.session['cart_items_count'] += 1
     elif action == 'remove':
-        order_item.quantity = (order_item.quantity - 1)
+        order_item.quantity -= 1
         request.session['cart_items_count'] -= 1
 
     order_item.save()
