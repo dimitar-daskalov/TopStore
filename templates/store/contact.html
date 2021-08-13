@@ -26,41 +26,43 @@
                     <img src="{% static 'images/contact_us.png' %}" alt="#">
                 </div>
             </div>
-            <div class="contact-form-container">
-                <h3 class="title-small">Leave Us a Message</h3>
-                <form method="POST" action="{% url 'contact' %}">
-                    {% csrf_token %}
-                    {% if not user.is_authenticated %}
-                        <div class="change-form-1">
-                            <label for="name">Name</label>
-                            {{ form.name }}
+            {% if not user.is_staff %}
+                <div class="contact-form-container">
+                    <h3 class="title-small">Leave Us a Message</h3>
+                    <form method="POST" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        {% if not user.is_authenticated %}
+                            <div class="change-form-1">
+                                <label for="name">Name</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="change-form-2">
+                                <label for="email">Email</label>
+                                {{ form.email }}
+                            </div>
+                        {% else %}
+                            <div class="invisible change-form-1">
+                                <label for="name">Name</label>
+                                <input type="hidden" name="name" value="{{ request.user.username }}">
+                            </div>
+                            <div class="invisible change-form-2">
+                                <label for="email">Email</label>
+                                <input type="hidden" name="email" value="{{ request.user.email }}">
+                            </div>
+                        {% endif %}
+                        <div class="change-form-3">
+                            <label for="message">Message</label>
+                            {{ form.message }}
+                            {{ form.errors }}
                         </div>
-                        <div class="change-form-2">
-                            <label for="email">Email</label>
-                            {{ form.email }}
+                        <div>
+                            <button class="main-btn">
+                                <input type="submit" value="Send"/>
+                            </button>
                         </div>
-                    {% else %}
-                        <div class="invisible change-form-1">
-                            <label for="name">Name</label>
-                            <input type="hidden" name="name" value="{{ request.user.username }}">
-                        </div>
-                        <div class="invisible change-form-2">
-                            <label for="email">Email</label>
-                            <input type="hidden" name="email" value="{{ request.user.email }}">
-                        </div>
-                    {% endif %}
-                    <div class="change-form-3">
-                        <label for="message">Message</label>
-                        {{ form.message }}
-                        {{ form.errors }}
-                    </div>
-                    <div>
-                        <button class="main-btn">
-                            <input type="submit" value="Send"/>
-                        </button>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
