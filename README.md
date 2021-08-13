@@ -51,6 +51,9 @@ You can create an account through /account/register/ if Email, Username and Pass
 
 Or you can use manage.py.
 
+## Video Presentation
+
+[![Video Presentation](https://github.com/dimitar-daskalov/TopStore/blob/main/static/images/app_store.png)](https://youtu.be/nEdcXNyJavA)
 
 ## Installation
 
