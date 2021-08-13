@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 from TopStore.accounts.models import Profile
@@ -15,3 +15,9 @@ def user_created(sender, instance, created, **kwargs):
         )
 
         profile.save()
+
+
+@receiver(pre_save, sender=Profile)
+def check_for_completed_profile(sender, instance, **kwargs):
+    if instance.profile_image:
+        instance.is_profile_completed = True

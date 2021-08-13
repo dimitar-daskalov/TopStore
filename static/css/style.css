@@ -107,6 +107,10 @@ input[type="submit"]:hover,
     font-size: 25px;
 }
 
+.text-notifications {
+    font-size: 15px;
+}
+
 .pagination .page-item.active a {
     background-color: #bdb7d7;
     border-color: #bdb7d7;

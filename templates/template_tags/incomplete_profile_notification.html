@@ -1,0 +1,6 @@
+{% if not is_profile_completed %}
+    <h6 class="text-capitalize text-notifications text-left title-small p-2">Your profile is missing a picture. Add
+        it
+        <a class="auth-label" href="{% url 'details account user' %}">here</a></h6>
+    <hr>
+{% endif %}

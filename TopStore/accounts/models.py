@@ -49,5 +49,9 @@ class Profile(models.Model):
         primary_key=True,
     )
 
+    is_profile_completed = models.BooleanField(
+        default=False,
+    )
+
 
 from .signals import *
