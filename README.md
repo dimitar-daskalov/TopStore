@@ -53,7 +53,7 @@ Or you can use manage.py.
 
 ## Video Presentation
 
-[![Video Presentation]](https://youtu.be/nEdcXNyJavA)
+[![Video Presentation](https://github.com/dimitar-daskalov/TopStore/blob/main/static/images/app_store.png)](https://youtu.be/nEdcXNyJavA)
 
 ## Installation
 
