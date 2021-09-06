@@ -8,7 +8,11 @@
     <div class="dropdown text-right">
         <button class="main-btn px-3 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            Categories
+            {% if chosen %}
+                {{ chosen|capfirst }}
+            {% else %}
+                Categories
+            {% endif %}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{% url 'all products' %}">All</a>

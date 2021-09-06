@@ -29,6 +29,10 @@
                     <button class="main-btn bgr-green m-2">
                         <a class="text-white" href="{% url 'completed orders user' %}">Orders </a>
                     </button>
+                {% else %}
+                    <button class="main-btn bgr-green m-2">
+                        <a class="text-white" href="{% url 'completed orders user' %}">All Orders </a>
+                    </button>
                 {% endif %}
                 <button class="main-btn m-2">
                     <a href="{% url 'sign out user' %}">Sign Out </a>

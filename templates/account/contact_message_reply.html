@@ -1,0 +1,57 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    {% block title %}
+        <title>Reply Message | TopStore</title>
+    {% endblock %}
+    <div class="contact-us">
+        <h1 class="title-big">Reply Message</h1>
+        <div class="contact-message-reply">
+            <div>
+                <br/>
+                <h3 class="title-small">Message</h3>
+                <form>
+                    <div class="change-form-1">
+                        <label for="name">Sender Name</label>
+                        {{ contact_message_form.name }}
+                    </div>
+                    <div class="change-form-2">
+                        <label for="name">Sender Email</label>
+                        {{ contact_message_form.email }}
+                    </div>
+                    <div class="change-form-3">
+                        <label for="name">Sender Message</label>
+                        {{ contact_message_form.message }}
+                    </div>
+                </form>
+            </div>
+            <div>
+                <br/>
+                <h3 class="title-small">Reply</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="change-form-1">
+                        <label for="email">Sender Name</label>
+                        {{ contact_message_reply_form.name }}
+                    </div>
+                    <div class="change-form-2">
+                        <label for="email">Sender Email</label>
+                        {{ contact_message_reply_form.email }}
+                    </div>
+                    <div class="change-form-3">
+                        <label for="message">Answer</label>
+                        {{ contact_message_reply_form.message }}
+                        {{ contact_message_reply_form.errors }}
+                    </div>
+                    <br/>
+                    <div>
+                        <button class="main-btn">
+                            <input type="submit" value="Send"/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+

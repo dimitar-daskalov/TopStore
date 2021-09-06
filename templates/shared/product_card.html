@@ -9,9 +9,9 @@
         <hr class="w-100"/>
         <p class="card-title text-center">{{ product.type }}</p>
         <p>{{ product.name }}</p>
-        <p class="text-center font-weight-bold text-danger">{{ product.price }} BGN</p>
+        <p class="text-center font-weight-bold text-danger">{{ product.price | floatformat:2 }} BGN</p>
         <button class="main-btn">
-             <a href="{% url 'details product' product.id %}">See details</a>
+            <a href="{% url 'details product' product.id %}">See details</a>
         </button>
     </div>
 </div>

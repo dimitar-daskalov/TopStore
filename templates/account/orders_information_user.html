@@ -2,7 +2,11 @@
 {% load static %}
 {% block content %}
     {% block title %}
-        <title>{{ user.username | capfirst }}'s Orders | TopStore</title>
+        {% if not user.is_staff %}
+            <title>{{ user.username | capfirst }}'s Orders | TopStore</title>
+        {% else %}
+            <title>All Orders | TopStore</title>
+        {% endif %}
     {% endblock %}
     <h2 class="text-center">Orders</h2>
     {% if not orders %}
@@ -15,12 +19,17 @@
                 <thead>
                 <tr>
                     <th scope="col">Date Ordered</th>
+                    {% if user.is_staff %}
+                        <th scope="col">User</th>
+                    {% endif %}
                     <th scope="col" class="row-mobile">Address</th>
                     <th scope="col" class="row-mobile">City</th>
                     <th scope="col" class="row-mobile">Telephone</th>
                     <th scope="col" class="row-mobile">Zip Code</th>
-                    <th scope="col" class="row-mobile-small">Items</th>
-                    <th scope="col">Items Count</th>
+                    <th scope="col" class="{% if user.is_staff %} row-mobile {% else %} row-mobile-small {% endif %}">
+                        Items
+                    </th>
+                    <th scope="col" class="{% if user.is_staff %} row-mobile-small {% endif %}">Items Count</th>
                     <th scope="col">Total Price</th>
                 </tr>
                 </thead>
@@ -28,12 +37,15 @@
                 {% for order in orders %}
                     <tr>
                         <td>{{ order.date_ordered }}</td>
+                        {% if user.is_staff %}
+                            <td>{{ order.user }}</td>
+                        {% endif %}
                         <td class="row-mobile">{{ order.address }}</td>
                         <td class="row-mobile">{{ order.city }}</td>
                         <td class="row-mobile">{{ order.telephone_number }}</td>
                         <td class="row-mobile">{{ order.zip_code }}</td>
-                        <td class="row-mobile-small">{{ order.items }}</td>
-                        <td>{{ order.total_cart_items_count }}</td>
+                        <td class="{% if user.is_staff %} row-mobile {% else %} row-mobile-small {% endif %}">{{ order.items }}</td>
+                        <td class="{% if user.is_staff %} row-mobile-small {% endif %}">{{ order.total_cart_items_count }}</td>
                         <td class="text-danger">{{ order.total_cart_items_price }} BGN</td>
                     </tr>
                 {% endfor %}

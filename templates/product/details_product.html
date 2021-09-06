@@ -34,7 +34,7 @@
                     {{ product.description }}
                 </div>
                 <br>
-                <h4 class="text-danger text-center">Price: {{ product.price }} BGN</h4>
+                <h4 class="text-danger text-center">Price: {{ product.price | floatformat:2 }} BGN</h4>
                 <br>
                 <div class="buttons-container">
                     {% if user.is_staff %}

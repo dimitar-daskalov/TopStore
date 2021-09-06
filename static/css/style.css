@@ -274,9 +274,9 @@ footer {
     padding: 0 10px;
 }
 
-.image-section-contact-us img {
+.image-section-contact-us iframe {
     max-width: 100%;
-    height: auto;
+    height: 210px;
 }
 
 .contact-us-p {
@@ -350,6 +350,14 @@ footer {
 
 .contact-message {
     text-align: center;
+}
+
+.contact-message-reply {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 /* end contact us */
@@ -529,12 +537,20 @@ footer {
 /* completed orders */
 
 @media only screen and (max-width: 1024px) {
+    .completed-orders-table {
+        font-size: 14px;
+    }
+
     .completed-orders-table .row-mobile {
         display: none;
     }
 }
 
 @media only screen and (max-width: 450px) {
+    .completed-orders-table {
+        font-size: 12px;
+    }
+
     .completed-orders-table .row-mobile-small {
         display: none;
     }
@@ -548,5 +564,11 @@ footer {
     color: orange;
 }
 
+/* contact messages */
 
+.messages-table {
+    word-break: break-all;
+}
+
+/* end contact messages */
 

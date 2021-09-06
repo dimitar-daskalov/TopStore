@@ -161,6 +161,7 @@ def all_products(request):
 
 
 def filter_products(request, product_type):
+    chosen_type = product_type
     product_type = product_type[:-1] if product_type != 'Headphones' else product_type
     filtered_products = Product.objects.filter(type=product_type)
     products = Product.objects.all()
@@ -180,7 +181,8 @@ def filter_products(request, product_type):
 
     context = {
         'all_products': filtered_products,
-        'types': types
+        'types': types,
+        'chosen': chosen_type
     }
 
     return render(request, 'product/all_products.html', context)

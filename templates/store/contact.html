@@ -23,7 +23,12 @@
                     </div>
                 </div>
                 <div class="image-section-contact-us">
-                    <img src="{% static 'images/contact_us.png' %}" alt="#">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3512.
+                    3634296429104!2d23.317781511154884!3d42.697679648123355!2m3!1f0!2f0!3f0!
+                    3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa856936dd8fb1%3A0x98e5c20f06711224!
+                    2z0L_Quy4g4oCe0KHQstC10YLQsCDQndC10LTQtdC70Y_igJwgNywgMTAwMCDQptC10L3RgtGK0YAsINCh0L7RhNC40Y8!
+                    5e0!3m2!1sbg!2sbg!4v1630589039213!5m2!1sbg!2sbg" width="440px" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
             </div>
             {% if not user.is_staff %}
@@ -56,6 +61,7 @@
                             {{ form.errors }}
                         </div>
                         <div>
+                            <br>
                             <button class="main-btn">
                                 <input type="submit" value="Send"/>
                             </button>

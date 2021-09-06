@@ -137,3 +137,7 @@ def update_item(request):
         order_item.delete()
 
     return JsonResponse('Item was added/removed', safe=False)
+
+
+def error_404(request, exception):
+    return render(request, 'error_pages/404_page_not_found.html')

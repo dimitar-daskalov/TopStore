@@ -1,0 +1,24 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    {% block title %}
+        <title>Page not found! | TopStore</title>
+    {% endblock %}
+    <div class="text-center">
+        <h4 class="title-small text-capitalize">This page is not available</h4>
+        <br>
+        <div class="image-section-about-us mx-auto d-block">
+            <img src="{% static 'images/404_not_found.jpg' %}" alt="#">
+        </div>
+        <br>
+        <h5>Continue shopping?</h5>
+        <br>
+        <button class="main-btn bgr-green">
+            <a class="text-white" href="{% url 'store' %}">
+                <i class="far fa-caret-square-left"></i>&nbsp; Back to TopStore
+            </a>
+        </button>
+        <br>
+        <br>
+    </div>
+{% endblock %}

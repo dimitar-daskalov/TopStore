@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -7,7 +8,8 @@ from django.urls import reverse_lazy
 from TopStore.accounts.forms import SignInForm, SignUpForm, ProfileDetailsForm
 from TopStore.accounts.models import Profile
 from TopStore.products.models import Like
-from TopStore.store.models import Order, OrderInformation
+from TopStore.store.forms import ContactForm
+from TopStore.store.models import Order, OrderInformation, ContactMessage
 
 
 # Create your views here.
@@ -104,9 +106,9 @@ def details_profile_user(request):
 def completed_orders_user(request):
     user = request.user
     if user.is_staff:
-        return redirect('all products')
-
-    orders = Order.objects.filter(user=user, is_completed=True).order_by('-date_ordered')
+        orders = Order.objects.filter(is_completed=True).order_by('-date_ordered')
+    else:
+        orders = Order.objects.filter(user=user, is_completed=True).order_by('-date_ordered')
 
     for order in orders:
         order.address = OrderInformation.objects.filter(order=order.id).values_list('address', flat=True)[0]
@@ -131,3 +133,68 @@ def completed_orders_user(request):
     }
 
     return render(request, 'account/orders_information_user.html', context)
+
+
+@login_required(login_url=reverse_lazy('sign in user'))
+def contact_messages_users(request):
+    if not request.user.is_staff:
+        return redirect('all products')
+
+    contact_messages = ContactMessage.objects.all().order_by('-id')
+
+    paginator = Paginator(contact_messages, 5)
+    page = request.GET.get('page')
+
+    try:
+        contact_messages = paginator.page(page)
+    except PageNotAnInteger:
+        contact_messages = paginator.page(1)
+    except EmptyPage:
+        contact_messages = paginator.page(paginator.num_pages)
+
+    context = {
+        'contact_messages': contact_messages,
+    }
+
+    return render(request, 'account/contact_messages_staff_user.html', context)
+
+
+@login_required(login_url=reverse_lazy('sign in user'))
+def contact_message_reply(request, pk):
+    if not request.user.is_staff:
+        return redirect('all products')
+
+    contact_message = ContactMessage.objects.get(pk=pk)
+
+    contact_message_form = ContactForm(initial=contact_message.__dict__)
+
+    for field in contact_message_form.fields:
+        contact_message_form.fields[field].disabled = True
+
+    if request.method == 'POST':
+        reply_form = ContactForm(request.POST,
+                                 initial={'name': contact_message.name, 'email': contact_message.email})
+
+        if reply_form.is_valid():
+            form = reply_form.save(commit=False)
+            name = form.name
+            mail_subject = f'{name.capitalize()} response email from TopStore.'
+            to_email = form.email
+            message = form.message
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            contact_message.answered = True
+            contact_message.save()
+
+            return redirect('contact messages users')
+    else:
+        reply_form = ContactForm(initial={'name': contact_message.name, 'email': contact_message.email})
+
+    context = {
+        'contact_message_form': contact_message_form,
+        'contact_message_reply_form': reply_form,
+    }
+
+    return render(request, 'account/contact_message_reply.html', context)
