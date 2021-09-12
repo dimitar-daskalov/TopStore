@@ -1,0 +1,16 @@
+{% autoescape off %}
+    Hi,
+
+    Welcome to TopStore!
+
+    Activate your profile and you will be able to comment, like, buy the latest products on the site and more.
+
+    Please click on the link below to confirm your registration.
+    http://{{ domain }}{% url 'activate email user' uidb64=uid token=token %}
+
+    If you are not interested, feel free to ignore this email.
+
+    Best Regards,
+
+    TopStore Team
+{% endautoescape %}

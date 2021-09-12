@@ -53,6 +53,10 @@ input[type="submit"]:hover,
     padding: 5px 15px;
 }
 
+.remove-margin {
+    margin: -5px;
+}
+
 .main-btn a,
 .main-btn input[type="submit"] {
     text-transform: capitalize;
@@ -100,7 +104,7 @@ input[type="submit"]:hover,
 }
 
 .title-big {
-    font-size: 35px;
+    font-size: 30px;
 }
 
 .title-small {

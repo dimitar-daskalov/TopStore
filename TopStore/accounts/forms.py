@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.core.exceptions import ValidationError
 
 from TopStore.accounts.models import Profile
@@ -46,3 +46,15 @@ class ProfileDetailsForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('profile_image',)
+
+
+class BootstrapChangePasswordForm(BootstrapFormMixin, PasswordChangeForm):
+    pass
+
+
+class BootstrapResetPasswordForm(BootstrapFormMixin, PasswordResetForm):
+    pass
+
+
+class BootstrapSetPasswordForm(BootstrapFormMixin, SetPasswordForm):
+    pass

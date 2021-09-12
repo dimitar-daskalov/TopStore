@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
@@ -37,9 +38,12 @@ class Product(models.Model):
         ],
     )
 
-    product_image = models.ImageField(
-        upload_to='products',
-        blank=True,
+    # product_image = models.ImageField(
+    #     upload_to='products',
+    #     blank=True,
+    # )
+    product_image = CloudinaryField(
+        'image',
     )
 
     price = models.FloatField(

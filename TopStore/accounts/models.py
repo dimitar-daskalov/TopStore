@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.core.validators import MinLengthValidator
@@ -25,6 +26,10 @@ class TopStoreUser(AbstractBaseUser, PermissionsMixin):
         default=False,
     )
 
+    is_active = models.BooleanField(
+        default=False,
+    )
+
     date_joined = models.DateTimeField(
         auto_now_add=True,
     )
@@ -39,10 +44,14 @@ class TopStoreUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    profile_image = models.ImageField(
-        upload_to='profiles',
-        blank=True,
+    # profile_image = models.ImageField(
+    #     upload_to='profiles',
+    #     blank=True,
+    # )
+    profile_image = CloudinaryField(
+        'image',
     )
+
     user = models.OneToOneField(
         TopStoreUser,
         on_delete=models.CASCADE,
