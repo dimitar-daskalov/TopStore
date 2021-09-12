@@ -1,1 +1,1 @@
-waitress-serve --listen=*:8000 TopStore.wsgi:application
+web: gunicorn TopStore.wsgi --log-file -
