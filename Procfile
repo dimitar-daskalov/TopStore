@@ -1,1 +1,1 @@
-web: waitress-serve --listen=127.0.0.1:8000 TopStore.wsgi:application
+web: gunicorn TopStore.wsgi
