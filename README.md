@@ -11,9 +11,9 @@ Version control system - Git.
 
 PostgreSQL DB.
 
-Function Based Views.
+Function and Class Based Views.
 
-20 endpoints.
+28 endpoints.
 
 Template inheritance.
 
@@ -22,6 +22,10 @@ Responsive design.
 Error Handling and Data Validations.
 
 Unit Tests.
+
+Automatic email system.
+
+Forgot password functionality.
 
 Extended Django user.
 
@@ -50,6 +54,10 @@ They can check the TopStore users, contact messages and all the products and ord
 You can create an account through /account/register/ if Email, Username and Password are correctly provided.
 
 Or you can use manage.py.
+
+After that, email with a verification link will be send to you for activation of your account.
+
+Open the link and you will be redirected to the sign in page.
 
 ## Video Presentation
 
@@ -97,6 +105,26 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+```
+
+Set cloudinary configuration.
+
+```python
+cloudinary.config(
+    cloud_name=environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key=environ.get('CLOUDINARY_API_KEY'),
+    api_secret=environ.get('CLOUDINARY_API_SECRET'),
+    secure=True,
+)
+```
+
+Set email configuration.
+
+```python
+EMAIL_HOST = environ.get('EMAIL_HOST')
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')
+EMAIL_PORT = environ.get('EMAIL_PORT')
 ```
 
 ## License
