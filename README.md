@@ -59,6 +59,10 @@ After that, email with a verification link will be send to you for activation of
 
 Open the link and you will be redirected to the sign in page.
 
+## Now available on Heroku
+
+http://topstore-ecom.herokuapp.com/
+
 ## Video Presentation
 
 [![Video Presentation](https://github.com/dimitar-daskalov/TopStore/blob/main/static/images/overview.png)](https://youtu.be/nEdcXNyJavA)
