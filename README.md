@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': environ.get('DB_NAME'), # - change to a valid database name
         'USER': environ.get('DB_USER'), # - change to a valid db username
         'PASSWORD': environ.get('DB_PASSWORD'), # - change to a valid db password
-        'HOST': '127.0.0.1',
+        'HOST': environ.get('DB_HOST'), # - change to a valid db host
         'PORT': '5432',
     }
 }
